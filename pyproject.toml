@@ -1,0 +1,51 @@
+[project]
+name = "conpot"
+version = "0.6.0"
+description = "Conpot is an ICS honeypot with the goal to collect intelligence about the motives and methods of adversaries targeting industrial control systems"
+authors = [
+    { name = "MushMush Foundation", email = "glastopf@public.honeynet.org" }
+]
+dependencies = [
+    "bacpypes==0.17.0",
+    "cpppo",
+    "crc16",
+    "cryptography",
+    "cybox",
+    "freezegun!=0.3.13",
+    "fs==2.3.0",
+    "gevent>=1.0",
+    "hpfeeds3",
+    "libtaxii>=1.1.0",
+    "lxml",
+    "mixbox",
+    "modbus-tk",
+    "natsort",
+    "psutil",
+    "pyghmi==1.4.1",
+    "pysmi",
+    "pysnmp",
+    "pysnmp-mibs",
+    "pytest",
+    "python-slugify",
+    "requests",
+    "scapy==2.4.3rc1",
+    "sphinx",
+    "sphinx_rtd_theme",
+    "stix",
+    "stix-validator",
+    "tftpy",
+]
+readme = "README.md"
+requires-python = ">=3.6"
+license = { text = "GPL 2" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
