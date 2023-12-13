@@ -9,7 +9,7 @@ import sys
 import codecs
 from lxml import etree
 from gevent.server import StreamServer
-
+import httpx
 import modbus_tk.modbus_tcp as modbus_tcp
 from modbus_tk import modbus
 
@@ -135,14 +135,17 @@ class ModbusServer(modbus.Server):
                     address[0], logdata, session.id)
 
                 response_time = str(datetime.datetime.now())
-                # send_origin = response_time+" Modbus traffic from "+str(address[0])+": "+str(logdata)+" ("+str(session.id)+")"
-                send_origin=response_time+"#"+str(logdata)+"#"+str(session.id)
-                data_bytes = send_origin.encode('utf-8')#传字节流
-                
+                logdata["time"] = response_time
+                logdata["session_id"] = session.id
+                # send_origin = f"{response_time}#{str(logdata)}#{str(session.id)}"
+                # data_bytes = send_origin.encode('utf-8')#传字节流
+
                 if response:
                     # sock.sendall(response)
-                    sock.sendall(data_bytes)
- 
+                    httpx.post("http://localhost:8000/api/v1/conpot_attacks", data=logdata)
+                    
+                    # sock.sendall(data_bytes)
+
                     logger.info('Modbus response sent to %s', address[0])
                 else:
                     # TODO:
